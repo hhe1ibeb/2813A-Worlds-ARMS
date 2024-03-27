@@ -12,6 +12,7 @@ void initialize() {
     arms::init();
 
     // subsystems
+    drive::init();
     screen::init();
     intake::init();
 }
@@ -61,6 +62,7 @@ void autonomous();
  * task, not resume it from where it left off.
  */
 void opcontrol() {
+    // pros::delay(3000);
     while (true) {
         if (!pros::competition::is_connected() &&
             drive::master.get_digital(DIGITAL_Y)) {
@@ -70,7 +72,7 @@ void opcontrol() {
         drive::opcontrol(false);
         intake::opcontrol();
         wings::opcontrol();
-        screen::print_capy();
+        screen::odom_debug();
 
         pros::delay(10);
     }

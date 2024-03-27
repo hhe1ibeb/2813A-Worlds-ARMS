@@ -5,10 +5,10 @@
 
 namespace wings {
 
-extern pros::ADIAnalogOut left_front_wing;
-extern pros::ADIAnalogOut right_front_wing;
-extern pros::ADIAnalogOut left_back_wing;
-extern pros::ADIAnalogOut right_back_wing;
+extern pros::ADIDigitalOut left_front_wing;
+extern pros::ADIDigitalOut right_front_wing;
+extern pros::ADIDigitalOut left_back_wing;
+extern pros::ADIDigitalOut right_back_wing;
 
 void init();
 void front_wings(bool state);

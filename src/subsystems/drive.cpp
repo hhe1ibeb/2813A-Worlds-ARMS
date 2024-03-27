@@ -33,7 +33,14 @@ pros::Motor R3 = pros::Motor(13, pros::E_MOTOR_GEARSET_06);
 pros::MotorGroup left_motors({L1, L2, L3});
 pros::MotorGroup right_motors({R1, R2, R3});
 
+pros::IMU imu_sensor(14);
+
 pros::Controller master(pros::E_CONTROLLER_MASTER);
+
+void init() {
+    imu_sensor.reset();
+    imu_sensor.set_heading(0);
+}
 
 void opcontrol(bool curves) {
     switch (curves) {

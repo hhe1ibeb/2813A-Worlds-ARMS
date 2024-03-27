@@ -6,6 +6,7 @@
 namespace intake {
 
 extern pros::MotorGroup intake;
+extern pros::ADIDigitalOut intake_piston;
 void init();
 void move(int speed);
 void opcontrol();

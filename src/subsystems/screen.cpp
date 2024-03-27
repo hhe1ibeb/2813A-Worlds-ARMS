@@ -20,15 +20,11 @@ void print_2813A() {
 }
 
 void print_capy() {
-    pros::lcd::print(0, "                ::.......::   ");
-    pros::lcd::print(1, "                ::::::::::: ");
-    pros::lcd::print(2, "          ::::::::::::::::::: ");
-    pros::lcd::print(3, "      ::::::::::::::::::::::: ");
-    pros::lcd::print(4, "   ::::::::::::::::::::::::      ");
-    pros::lcd::print(5, "   :::::::::::::::::::::::       ");
-    pros::lcd::print(6, "   :::::::::  :::::::::::       ");
-    pros::lcd::print(7, "   :::: ::::      ::::::       ");
-    pros::lcd::print(8, "  ::     :::      :: ::       ");
+    pros::lcd::print(0, "  ___   _   ___   ___");
+    pros::lcd::print(1, " / __\\ /_\\ / _ \\/\\_\\");
+    pros::lcd::print(2, "/ /  //_\\\\/ /_)/_ _\\/");
+    pros::lcd::print(3, "/ /__/  _  \\/ __/ / \\");
+    pros::lcd::print(4, "\\____\\_/ \\_/\\/   \\_/");
 }
 
 void print_position() {
@@ -47,5 +43,8 @@ void odom_debug() {
         4, "Right: " + std::to_string(arms::odom::getRightEncoder()));
     pros::lcd::set_text(
         5, "Middle: " + std::to_string(arms::odom::getMiddleEncoder()));
+    pros::lcd::set_text(
+        6, "Inertial: " + std::to_string(drive::imu_sensor.get_rotation()));
+    std::cout << "Inertial: " << drive::imu_sensor.get_rotation() << std::endl;
 }
 }  // namespace screen

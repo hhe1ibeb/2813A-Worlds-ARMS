@@ -10,7 +10,10 @@ void far_elim() {}
 
 void skills() {}
 
-void tuning() { arms::chassis::move(24, 100); }
+void tuning() {
+    arms::odom::reset({0, 0}, 0);
+    arms::chassis::move(24, 100);
+}
 
 void autonomous() {
     tuning();
