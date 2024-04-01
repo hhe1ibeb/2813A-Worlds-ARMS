@@ -72,7 +72,7 @@ void opcontrol() {
         drive::opcontrol(false);
         intake::opcontrol();
         wings::opcontrol();
-        screen::odom_debug();
+        screen::print_2813A();
 
         pros::delay(10);
     }

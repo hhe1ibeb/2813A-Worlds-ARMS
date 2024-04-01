@@ -37,6 +37,8 @@ void back_wings(bool state) {
     }
 }
 
+bool is_on = false;
+
 void opcontrol() {
     // if (drive::master.get_digital_new_press(DIGITAL_L1)) {
     //     front_wings(true);
@@ -48,10 +50,14 @@ void opcontrol() {
     // } else {
     //     back_wings(false);
     // }
+
     if (drive::master.get_digital_new_press(DIGITAL_L1)) {
-        wings.set_value(1);
+        is_on = !is_on;
     }
-    if (drive::master.get_digital_new_press(DIGITAL_L2)) {
+
+    if (is_on) {
+        wings.set_value(1);
+    } else {
         wings.set_value(0);
     }
 }

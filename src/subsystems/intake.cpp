@@ -17,6 +17,8 @@ void init() {
 
 void move(int speed) { intake.move_velocity(speed); }
 
+bool is_on = false;
+
 void opcontrol() {
     static int speed = 0;
 
@@ -27,11 +29,14 @@ void opcontrol() {
     // else
     //     speed = 0;
 
-    if (drive::master.get_digital_new_press(DIGITAL_R1))
-        intake_piston.set_value(1);
-    else if (drive::master.get_digital_new_press(DIGITAL_R2))
-        intake_piston.set_value(0);
+    if (drive::master.get_digital_new_press(DIGITAL_R1)) {
+        is_on = !is_on;
+    }
 
-    move(speed);
+    if (is_on) {
+        intake_piston.set_value(1);
+    } else {
+        intake_piston.set_value(0);
+    }
 }
 }  // namespace intake

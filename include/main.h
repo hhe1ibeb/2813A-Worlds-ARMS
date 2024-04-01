@@ -41,6 +41,7 @@
 #include "subsystems/drive.hpp"
 #include "subsystems/intake.hpp"
 #include "subsystems/screen.hpp"
+#include "subsystems/utils.hpp"
 #include "subsystems/wings.hpp"
 
 /**
