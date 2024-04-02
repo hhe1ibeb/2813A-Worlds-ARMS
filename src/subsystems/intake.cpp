@@ -22,21 +22,13 @@ bool is_on = false;
 void opcontrol() {
     static int speed = 0;
 
-    // if (drive::master.get_digital(DIGITAL_R1))
-    //     speed = 100;
-    // else if (drive::master.get_digital(DIGITAL_R2))
-    //     speed = -100;
-    // else
-    //     speed = 0;
-
-    if (drive::master.get_digital_new_press(DIGITAL_R1)) {
-        is_on = !is_on;
-    }
-
-    if (is_on) {
-        intake_piston.set_value(1);
-    } else {
-        intake_piston.set_value(0);
-    }
+    if (drive::master.get_digital(DIGITAL_R1)) {
+        speed = 100;
+        move(speed);
+    } else if (drive::master.get_digital(DIGITAL_R2)) {
+        speed = -100;
+        move(speed);
+    } else
+        speed = 0;
 }
 }  // namespace intake

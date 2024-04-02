@@ -15,6 +15,7 @@ void initialize() {
     drive::init();
     screen::init();
     intake::init();
+    wings::init();
 }
 
 /**

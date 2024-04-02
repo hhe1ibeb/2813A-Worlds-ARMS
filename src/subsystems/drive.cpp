@@ -1,4 +1,11 @@
 #include "main.h"
+#define FORWARD_T 4.3
+#define TURN_T 2.1
+
+namespace drive {
+pros::IMU imu_sensor(14);
+
+pros::Controller master(pros::E_CONTROLLER_MASTER);
 
 double calculate_curves(double x, double t) {
     double y =
@@ -8,34 +15,17 @@ double calculate_curves(double x, double t) {
     return y;
 }
 
-void drive_curves_arcade(double forward, double turn) {
-    const double forward_t = 4.3;
-    const double turn_t = 2.1;
-
+double drive_curves_arcade_forward(double forward, double forward_t) {
     double forward_curve = calculate_curves(forward, forward_t);
-    double turn_curve = calculate_curves(turn, turn_t);
 
-    double left = forward_curve + turn_curve;
-    double right = forward_curve - turn_curve;
-
-    drive::left_motors.move_velocity(left);
-    drive::right_motors.move_velocity(right);
+    return forward_curve;
 }
 
-namespace drive {
-pros::Motor L1 = pros::Motor(-13, pros::E_MOTOR_GEARSET_06);
-pros::Motor L2 = pros::Motor(-14, pros::E_MOTOR_GEARSET_06);
-pros::Motor L3 = pros::Motor(-16, pros::E_MOTOR_GEARSET_06);
-pros::Motor R1 = pros::Motor(15, pros::E_MOTOR_GEARSET_06);
-pros::Motor R2 = pros::Motor(17, pros::E_MOTOR_GEARSET_06);
-pros::Motor R3 = pros::Motor(18, pros::E_MOTOR_GEARSET_06);
+double drive_curves_arcade_turn(double turn, double turn_t) {
+    double turn_curve = calculate_curves(turn, turn_t);
 
-pros::MotorGroup left_motors({L1, L2, L3});
-pros::MotorGroup right_motors({R1, R2, R3});
-
-pros::IMU imu_sensor(14);
-
-pros::Controller master(pros::E_CONTROLLER_MASTER);
+    return turn_curve;
+}
 
 void drive_imu_display_loading(int iter) {
     // If the lcd is already initialized, don't run this function
@@ -99,15 +89,16 @@ void init() { drive_imu_calibrate(true); }
 void opcontrol(bool curves) {
     switch (curves) {
         case true:
-            drive_curves_arcade(master.get_analog(ANALOG_LEFT_Y),
-                                master.get_analog(ANALOG_RIGHT_X));
+            arms::chassis::arcade(
+                drive_curves_arcade_forward(master.get_analog(ANALOG_LEFT_Y),
+                                            FORWARD_T),
+                drive_curves_arcade_turn(master.get_analog(ANALOG_RIGHT_X),
+                                         TURN_T));
             break;
         case false:
             arms::chassis::arcade(master.get_analog(ANALOG_LEFT_Y),
                                   master.get_analog(ANALOG_RIGHT_X));
             break;
     }
-    arms::chassis::arcade(master.get_analog(ANALOG_LEFT_Y),
-                          master.get_analog(ANALOG_RIGHT_X));
 }
 }  // namespace drive
