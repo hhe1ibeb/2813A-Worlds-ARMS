@@ -35,6 +35,7 @@
 #define PROS_USE_LITERALS
 
 #include "ARMS/api.h"
+#include "ARMS/config.h"
 #include "api.h"
 
 // subsystems

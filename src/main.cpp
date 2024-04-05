@@ -49,6 +49,9 @@ void competition_initialize() {}
  */
 void autonomous();
 
+void odom_tuning(int mode);
+void pid_tuning(int mode);
+
 /**
  * Runs the operator control code. This function will be started in its own task
  * with the default priority and stack size whenever the robot is enabled via
@@ -63,17 +66,25 @@ void autonomous();
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-    // pros::delay(3000);
     while (true) {
-        if (!pros::competition::is_connected() &&
-            drive::master.get_digital(DIGITAL_Y)) {
-            autonomous();
-        }
-
         drive::opcontrol(false);
         intake::opcontrol();
         wings::opcontrol();
         screen::odom_debug();
+
+        // autonomous tests
+        if (!pros::competition::is_connected() &&
+            drive::master.get_digital_new_press(DIGITAL_Y)) {
+            autonomous();
+        }
+        if (!pros::competition::is_connected() &&
+            drive::master.get_digital(DIGITAL_UP)) {
+            odom_tuning(0);  // 0 = tpi, 1 = track width, 2 = middle distance
+        }
+        if (!pros::competition::is_connected() &&
+            drive::master.get_digital(DIGITAL_DOWN)) {
+            pid_tuning(0);  // 0 = angular, 1 = linear, 2 = boomerang
+        }
 
         pros::delay(10);
     }
