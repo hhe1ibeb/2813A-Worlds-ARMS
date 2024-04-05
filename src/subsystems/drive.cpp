@@ -44,7 +44,7 @@ void drive_imu_display_loading(int iter) {
     // While IMU is loading
     if (iter < 2000) {
         static int last_x1 = boarder;
-        pros::screen::set_pen(0x00FF6EC7);  // EZ Pink
+        pros::screen::set_pen(COLOR_LIME);
         int x1 = (iter * ((480 - (boarder * 2)) / 2000.0)) + boarder;
         pros::screen::fill_rect(last_x1, boarder, x1, 240 - boarder);
         last_x1 = x1;
