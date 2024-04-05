@@ -37,10 +37,12 @@
 #include "ARMS/api.h"
 #include "ARMS/config.h"
 #include "api.h"
+#include "sylib/sylib.hpp"
 
 // subsystems
 #include "subsystems/drive.hpp"
 #include "subsystems/intake.hpp"
+#include "subsystems/leds.hpp"
 #include "subsystems/screen.hpp"
 #include "subsystems/utils.hpp"
 #include "subsystems/wings.hpp"
