@@ -1,8 +1,8 @@
 #include "main.h"
 
 namespace intake {
-pros::Motor intake_1(-5);
-pros::Motor intake_2(6);
+pros::Motor intake_1(1);
+pros::Motor intake_2(-10);
 
 pros::MotorGroup intake({intake_1, intake_2});
 
@@ -21,11 +21,10 @@ void opcontrol() {
 
     if (drive::master.get_digital(DIGITAL_R1)) {
         speed = 600;
-        move(speed);
     } else if (drive::master.get_digital(DIGITAL_R2)) {
         speed = -600;
-        move(speed);
     } else
         speed = 0;
+    move(speed);
 }
 }  // namespace intake

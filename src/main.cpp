@@ -10,6 +10,7 @@
  */
 void initialize() {
     arms::init();
+    sylib::initialize();
 
     // subsystems
     drive::init();
@@ -66,6 +67,8 @@ void pid_tuning(int mode);
  * task, not resume it from where it left off.
  */
 void opcontrol() {
+    leds::opcontrol();
+
     while (true) {
         drive::opcontrol(false);
         intake::opcontrol();
@@ -79,11 +82,11 @@ void opcontrol() {
         }
         if (!pros::competition::is_connected() &&
             drive::master.get_digital(DIGITAL_UP)) {
-            odom_tuning(0);  // 0 = tpi, 1 = track width, 2 = middle distance
+            odom_tuning(1);  // 1 = tpi, 2 = track width, 3 = middle distance
         }
         if (!pros::competition::is_connected() &&
             drive::master.get_digital(DIGITAL_DOWN)) {
-            pid_tuning(0);  // 0 = angular, 1 = linear, 2 = boomerang
+            pid_tuning(1);  // 1 = angular, 2 = linear, 3 = boomerang
         }
 
         pros::delay(10);

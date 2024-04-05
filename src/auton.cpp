@@ -10,25 +10,25 @@ void far_elim() {}
 
 void skills() {}
 
-void odom_tuning(int mode) {  // 0 = tpi, 1 = track width, 2 = middle distance
+void odom_tuning(int mode) {  // 1 = tpi, 2 = track width, 3 = middle distance
     arms::odom::reset();
+    int forward_distance = 24;
+    int degrees = 135;
     switch (mode) {
-        case 0:  // repeat until X position matches distance pushed
-            int forward_distance = 24;
+        case 1:  // repeat until X position matches distance pushed
             arms::chassis::move(forward_distance, 100);
             printf("X: %f\n", arms::odom::getPosition().x);
             printf("New TPI should be: %f\n",
                    TPI * arms::odom::getPosition().x / forward_distance);
             break;
-        case 1:  // for motor encoders, remember to disable imu, repeat until
+        case 2:  // for motor encoders, remember to disable imu, repeat until
                  // heading matches the degrees turned
-            int degrees = 135;
             arms::chassis::turn(degrees, 100);
             printf("Heading: %f\n", arms::odom::getHeading());
             printf("New track widtu should be: %f\n",
                    TRACK_WIDTH * arms::odom::getHeading() / degrees);
             break;
-        case 2:  // repeat until Y position after turn is close to 0
+        case 3:  // repeat until Y position after turn is close to 0
             arms::chassis::turn(90, 100);
             printf("Y: %f\n", arms::odom::getPosition().y);
             printf("Heading: %f\n", arms::odom::getHeading());
@@ -39,18 +39,18 @@ void odom_tuning(int mode) {  // 0 = tpi, 1 = track width, 2 = middle distance
     }
 }
 
-void pid_tuning(int mode) {  // 0 = angular, 1 = linear, 2 = boomerang
+void pid_tuning(int mode) {  // 1 = angular, 2 = linear, 3 = boomerang
+    arms::odom::reset({0, 0}, 0);
     switch (mode) {
-        arms::odom::reset({0, 0}, 0);
-        case 0:  // once done, remove ASYNC flag and delay to check
+        case 1:  // once done, remove ASYNC flag and delay to check
             arms::chassis::turn(90, arms::ASYNC);
             pros::delay(3000);
             break;
-        case 1:
+        case 2:
             arms::chassis::move(24, arms::ASYNC);
             pros::delay(3000);
             break;
-        case 2:
+        case 3:
             arms::chassis::move(
                 {24, 24,
                  90});  // Increase TRACKING_KP if the robot doesn't reach the
