@@ -17,6 +17,7 @@ void initialize() {
     screen::init();
     intake::init();
     wings::init();
+    leds::init();
 }
 
 /**
@@ -67,13 +68,12 @@ void pid_tuning(int mode);
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-    leds::opcontrol();
-
     while (true) {
         drive::opcontrol(false);
         intake::opcontrol();
         wings::opcontrol();
         screen::odom_debug();
+        sensors::opcontrol();
 
         // autonomous tests
         if (!pros::competition::is_connected() &&
@@ -88,7 +88,6 @@ void opcontrol() {
             drive::master.get_digital(DIGITAL_DOWN)) {
             pid_tuning(1);  // 1 = angular, 2 = linear, 3 = boomerang
         }
-
         pros::delay(10);
     }
 }

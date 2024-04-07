@@ -1,14 +1,6 @@
 #include "main.h"
 
-void near_qual() {}
-
-void far_qual() {}
-
-void near_elim() {}
-
-void far_elim() {}
-
-void skills() {}
+const int intake_length = 12;  // in inches
 
 void odom_tuning(int mode) {  // 1 = tpi, 2 = track width, 3 = middle distance
     arms::odom::reset();
@@ -60,6 +52,30 @@ void pid_tuning(int mode) {  // 1 = angular, 2 = linear, 3 = boomerang
                         // boomerang less aggressive.
     }
 }
+
+double get_distance(double x1, double y1, double x2, double y2) {
+    return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
+}
+
+void intake_ball_at(std::vector<double> target, int speed, int intake_speed,
+                    bool pid = 1) {
+    intake::move(intake_speed);
+    if (pid)
+        arms::chassis::move(target, speed, intake_length, arms::ASYNC);
+    else
+        arms::chassis::move(target, speed, intake_length,
+                            arms::ASYNC | arms::THRU);
+}
+
+void near_qual() {}
+
+void far_qual() {}
+
+void near_elim() {}
+
+void far_elim() {}
+
+void skills() {}
 
 void autonomous() {
     switch (arms::selector::auton) {
