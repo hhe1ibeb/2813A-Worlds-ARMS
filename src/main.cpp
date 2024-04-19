@@ -9,15 +9,12 @@
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
+    // drive::init();
     arms::init();
-    sylib::initialize();
 
     // subsystems
-    drive::init();
-    screen::init();
     intake::init();
     wings::init();
-    leds::init();
 }
 
 /**
@@ -68,6 +65,10 @@ void pid_tuning(int mode);
  * task, not resume it from where it left off.
  */
 void opcontrol() {
+    screen::init();
+
+    arms::chassis::setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
+
     while (true) {
         drive::opcontrol(false);
         intake::opcontrol();
@@ -77,7 +78,7 @@ void opcontrol() {
 
         // autonomous tests
         if (!pros::competition::is_connected() &&
-            drive::master.get_digital_new_press(DIGITAL_Y)) {
+            drive::master.get_digital_new_press(DIGITAL_X)) {
             autonomous();
         }
         if (!pros::competition::is_connected() &&
@@ -86,7 +87,7 @@ void opcontrol() {
         }
         if (!pros::competition::is_connected() &&
             drive::master.get_digital(DIGITAL_DOWN)) {
-            pid_tuning(1);  // 1 = angular, 2 = linear, 3 = boomerang
+            pid_tuning(3);  // 1 = angular, 2 = linear, 3 = boomerang
         }
         pros::delay(10);
     }

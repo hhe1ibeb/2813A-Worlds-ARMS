@@ -5,7 +5,7 @@ namespace leds {
 // sylib::Addrled left(22, 1, 10);
 // sylib::Addrled right(22, 2, 10);
 
-sylib::Addrled myLights(22, 2, 20);
+sylib::Addrled myLights(22, 5, 20);
 
 const int CHASSIS_COLOR_START = 0xD8EBFF;
 const int CHASSIS_COLOR_END = 0x004589;

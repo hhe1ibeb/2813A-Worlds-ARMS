@@ -1,8 +1,8 @@
 #include "main.h"
 
 namespace intake {
-pros::Motor intake_1(1);
-pros::Motor intake_2(-10);
+pros::Motor intake_1(15);
+pros::Motor intake_2(-20);
 
 pros::MotorGroup intake({intake_1, intake_2});
 
@@ -10,6 +10,7 @@ void init() {
     intake.set_gearing(MOTOR_GEARSET_06);
     intake.set_brake_modes(MOTOR_BRAKE_COAST);
     intake.set_encoder_units(MOTOR_ENCODER_DEGREES);
+    printf("Intake finished initialize\n");
 }
 
 void move(int speed) { intake.move_velocity(speed); }

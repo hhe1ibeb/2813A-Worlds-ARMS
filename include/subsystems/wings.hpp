@@ -10,9 +10,13 @@ extern pros::ADIDigitalOut right_front_wing;
 extern pros::ADIDigitalOut left_back_wing;
 extern pros::ADIDigitalOut right_back_wing;
 
+extern pros::ADIDigitalOut pto;
+
 void init();
-void front_wings(bool state);
-void back_wings(bool state);
+void front(bool state);
+void back(bool state);
+void front(bool right, bool left);
+void back(bool right, bool left);
 void opcontrol();
 
 }  // namespace wings

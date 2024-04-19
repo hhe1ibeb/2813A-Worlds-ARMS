@@ -3,7 +3,7 @@
 #define TURN_T 2.1
 
 namespace drive {
-pros::IMU imu_sensor(14);
+pros::IMU imu_sensor(16);
 
 pros::Controller master(pros::E_CONTROLLER_MASTER);
 
@@ -84,7 +84,10 @@ bool drive_imu_calibrate(bool run_loading_animation) {
     return true;
 }
 
-void init() { drive_imu_calibrate(true); }
+void init() {
+    bool imu_is_caliberated = drive_imu_calibrate(true);
+    printf("Drive finished initialize\n");
+}
 
 void opcontrol(bool curves) {
     switch (curves) {
