@@ -50,11 +50,10 @@ namespace arms {
 #define MIN_ANGULAR_SPEED 0  // Minimum speed for angular movements
 
 // Auton selector configuration constants
-#define AUTONS                            \
-    "Near Q", "Far Q", "Near E", "Far E", \
-        "Nothing"  // Names of autonomi, up to 10
+#define AUTONS \
+    "NQ", "FQAWP", "FQN", "NE", "FE", "Nothing"  // Names of autonomi, up to 10
 #define HUE 317    // Color of theme from 0-359(H part of HSV)
-#define DEFAULT 2  // Default auton selected
+#define DEFAULT 1  // Default auton selected
 
 // Initializer
 inline void init() {
