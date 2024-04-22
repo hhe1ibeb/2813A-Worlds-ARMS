@@ -78,8 +78,12 @@ void intake_ball_at(std::vector<double> target, int speed, int intake_speed,
 
 void near_qual() {
     arms::odom::reset({0, 0}, -135);
+    wings::back(1, 0);
+    pros::delay(500);
+    wings::back(false);
     // push preload with back
     arms::chassis::move({26, 10, -180}, 100, arms::REVERSE);
+    arms::chassis::waitUntilFinished(0);
     // turn and push out match load
     arms::chassis::move(5, 100);
     arms::chassis::turn(0, 100);
@@ -99,13 +103,18 @@ void near_qual() {
 
 void far_qual_with_bar() {
     arms::odom::reset({0, 0}, 0);
-    arms::chassis::move(24, 100);
-    intake::move(-100);
-    arms::chassis::turn(-80, 100);
-    arms::chassis::turn(90, 100);
+    arms::chassis::move(28, 100, arms::ASYNC);
+    wings::back(1, 0);
+    pros::delay(100);
+    wings::back(false);
+    intake::move(200);
+    arms::chassis::waitUntilFinished(0);
+    intake::move(-300);
+    arms::chassis::turn(-60, 100);
+    arms::chassis::turn(80, 100);
     arms::odom::reset({0, 0}, 0);
     intake::move(300);
-    arms::chassis::move(24, 100);
+    arms::chassis::move(26, 100);
     arms::chassis::turn(-135, 100);
     intake::move(-600);
     pros::delay(250);
@@ -123,10 +132,10 @@ void far_qual_with_bar() {
     wings::front(false);
     arms::chassis::turn(90, 100);
     arms::odom::reset({0, 0}, 0);
-    arms::chassis::move(-30, 100, arms::REVERSE);
+    arms::chassis::move(-36, 100, arms::REVERSE);
     arms::chassis::turn(-90, 100);
     arms::odom::reset({0, 0}, 0);
-    arms::chassis::move(-24, 100, arms::REVERSE);
+    arms::chassis::move(-12, 100, arms::REVERSE);
     wings::back(1, 0);
 }
 
@@ -134,8 +143,10 @@ void far_qual_no_bar() {
     // fetch ball under bar
     arms::odom::reset({0, 0}, 0);
     intake::move(300);
+    wings::back(1, 0);
+    pros::delay(500);
     arms::chassis::move(10, 60);
-    pros::delay(100);
+    wings::back(false);
     // push ball from matchload zone
     arms::chassis::move({-24, 0, 0}, 100, arms::REVERSE);
     arms::chassis::move({-40, -16, 100}, 60, arms::REVERSE | arms::ASYNC);
@@ -188,7 +199,12 @@ void near_elim() {
     intake::move(300);
     arms::odom::reset({0, 0}, 0);
     // steal middle triball
-    arms::chassis::move({48, -8, 0}, 100);
+    arms::chassis::move({48, -8, 0}, 100, arms::ASYNC);
+    pros::delay(500);
+    wings::back(1, 0);
+    pros::delay(250);
+    wings::back(false);
+    arms::chassis::waitUntilFinished(0);
     // push middle triball
     arms::chassis::turn(-80, 100);
     arms::odom::reset({0, 0}, 0);
@@ -206,13 +222,13 @@ void near_elim() {
     arms::odom::reset({0, 0}, 0);
     arms::chassis::move(12, 100);
     wings::back(0, 1);
-    arms::chassis::move(-20, 100, arms::REVERSE);
+    arms::chassis::move(-22, 100, arms::REVERSE);
     // push two balls to offensive zone
     arms::chassis::turn(45, 100);
     wings::back(false);
     arms::odom::reset({0, 0}, 0);
     arms::chassis::move(-40, 100, arms::REVERSE);
-    arms::chassis::move({18, -18, 150}, 100);
+    arms::chassis::move({22, -22, 150}, 100);
 }
 
 void far_elim() {  // not fully tested!!
@@ -220,7 +236,10 @@ void far_elim() {  // not fully tested!!
     pros::delay(300);
     intake::move(300);
     // rush fetch middle triball
-    arms::chassis::move({48, 28, 45}, 100);
+    arms::chassis::move({48, 28, 45}, 100, arms::ASYNC);
+    wings::back(1, 0);
+    pros::delay(500);
+    wings::back(false);
     arms::chassis::move({-15, 0, 0}, 100, arms::REVERSE);
     intake::move(-300);
     arms::chassis::turn(-45, 100);
@@ -257,7 +276,6 @@ void far_elim() {  // not fully tested!!
 void skills() {}
 
 void autonomous() {
-    screen::odom_debug();
     arms::chassis::setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
     switch (arms::selector::auton) {
         case 1:

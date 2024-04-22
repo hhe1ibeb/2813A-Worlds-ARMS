@@ -74,20 +74,12 @@ void opcontrol() {
         intake::opcontrol();
         wings::opcontrol();
         screen::odom_debug();
-        sensors::opcontrol();
+        shooter::opcontrol();
 
         // autonomous tests
         if (!pros::competition::is_connected() &&
             drive::master.get_digital_new_press(DIGITAL_X)) {
             autonomous();
-        }
-        if (!pros::competition::is_connected() &&
-            drive::master.get_digital(DIGITAL_UP)) {
-            odom_tuning(1);  // 1 = tpi, 2 = track width, 3 = middle distance
-        }
-        if (!pros::competition::is_connected() &&
-            drive::master.get_digital(DIGITAL_DOWN)) {
-            pid_tuning(3);  // 1 = angular, 2 = linear, 3 = boomerang
         }
         pros::delay(10);
     }

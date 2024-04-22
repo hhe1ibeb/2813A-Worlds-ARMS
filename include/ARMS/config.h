@@ -19,7 +19,7 @@ namespace arms {
 
 // Tracking wheel distances
 #define TRACK_WIDTH \
-    16.11  // The distance between left and right wheels (or tracker wheels)
+    12.7  // The distance between left and right wheels (or tracker wheels)
 #define MIDDLE_DISTANCE \
     0  // Distance from middle wheel to the robot turning center
 
@@ -53,7 +53,7 @@ namespace arms {
 #define AUTONS \
     "NQ", "FQAWP", "FQN", "NE", "FE", "Nothing"  // Names of autonomi, up to 10
 #define HUE 317    // Color of theme from 0-359(H part of HSV)
-#define DEFAULT 1  // Default auton selected
+#define DEFAULT 3  // Default auton selected
 
 // Initializer
 inline void init() {

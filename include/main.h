@@ -44,6 +44,7 @@
 #include "subsystems/leds.hpp"
 #include "subsystems/screen.hpp"
 #include "subsystems/sensors.hpp"
+#include "subsystems/shooter.hpp"
 #include "subsystems/utils.hpp"
 #include "subsystems/wings.hpp"
 
