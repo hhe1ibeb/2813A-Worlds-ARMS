@@ -62,8 +62,10 @@ void opcontrol() {
     if (drive::master.get_digital_new_press(DIGITAL_Y)) {
         pto_state = !pto_state;
     }
-    if (drive::master.get_digital_new_press(DIGITAL_RIGHT)) {
+    if (drive::master.get_digital(DIGITAL_LEFT) &&
+        drive::master.get_digital(DIGITAL_A)) {
         release_state = !release_state;
+        pros::delay(500);
     }
     pto.set_value(pto_state);
     release.set_value(release_state);

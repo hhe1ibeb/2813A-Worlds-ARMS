@@ -78,46 +78,43 @@ void intake_ball_at(std::vector<double> target, int speed, int intake_speed,
 
 void near_qual() {
     arms::odom::reset({0, 0}, -135);
-    wings::back(1, 0);
-    pros::delay(500);
-    wings::back(false);
     // push preload with back
     arms::chassis::move({26, 10, -180}, 100, arms::REVERSE);
-    arms::chassis::waitUntilFinished(0);
     // turn and push out match load
     arms::chassis::move(5, 100);
     arms::chassis::turn(0, 100);
     arms::odom::reset({0, 0}, -180);
     arms::chassis::move({20, 8, -90}, 100, arms::REVERSE | arms::ASYNC);
     pros::delay(300);
-    wings::back(0, 1);
+    wings::back(true);
     arms::chassis::waitUntilFinished(0.5);
     wings::back(0, 0);
     arms::chassis::move({24, 16, -90}, 100, arms::REVERSE);
     // push to side and touch bar
     arms::odom::reset({0, 0}, 0);
-    arms::chassis::move({-44, 0, 0}, 100, arms::REVERSE | arms::ASYNC);
+    arms::chassis::move({-40, 0, 0}, 100, arms::REVERSE | arms::ASYNC);
     pros::delay(1000);
     wings::back(1, 0);
 }
 
 void far_qual_with_bar() {
     arms::odom::reset({0, 0}, 0);
-    arms::chassis::move(28, 100, arms::ASYNC);
+    arms::chassis::move(40, 100, arms::ASYNC);
     wings::back(1, 0);
     pros::delay(100);
     wings::back(false);
     intake::move(200);
     arms::chassis::waitUntilFinished(0);
-    intake::move(-300);
-    arms::chassis::turn(-60, 100);
-    arms::chassis::turn(80, 100);
+    arms::chassis::turn(-80, 100);
+    intake::move(-600);
+    pros::delay(600);
+    arms::chassis::turn(110, 100);
     arms::odom::reset({0, 0}, 0);
     intake::move(300);
     arms::chassis::move(26, 100);
-    arms::chassis::turn(-135, 100);
-    intake::move(-600);
-    pros::delay(250);
+    arms::chassis::turn(-160, 100);
+    intake::move(-300);
+    pros::delay(500);
     intake::move(300);
     arms::chassis::turn(-70, 100);
     arms::chassis::move(20, 100);
@@ -132,11 +129,11 @@ void far_qual_with_bar() {
     wings::front(false);
     arms::chassis::turn(90, 100);
     arms::odom::reset({0, 0}, 0);
-    arms::chassis::move(-36, 100, arms::REVERSE);
+    arms::chassis::move(-46, 100, arms::REVERSE);
     arms::chassis::turn(-90, 100);
     arms::odom::reset({0, 0}, 0);
-    arms::chassis::move(-12, 100, arms::REVERSE);
     wings::back(1, 0);
+    arms::chassis::move(-10, 100, arms::REVERSE);
 }
 
 void far_qual_no_bar() {
@@ -216,7 +213,7 @@ void near_elim() {
     arms::odom::reset({0, 0}, 0);
     wings::front(false);
     intake::move(0);
-    arms::chassis::move(-54, 100, arms::REVERSE);
+    arms::chassis::move(-66, 100, arms::REVERSE);
     arms::chassis::turn(90, 100);
     // push preload in match load zone
     arms::odom::reset({0, 0}, 0);
@@ -277,6 +274,8 @@ void skills() {}
 
 void autonomous() {
     arms::chassis::setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
+    leds::auton_set();
+    leds::auton_cycle();
     switch (arms::selector::auton) {
         case 1:
             near_qual();

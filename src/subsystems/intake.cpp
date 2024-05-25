@@ -1,7 +1,7 @@
 #include "main.h"
 
 namespace intake {
-pros::Motor intake_1(15);
+pros::Motor intake_1(11);
 pros::Motor intake_2(-20);
 
 pros::MotorGroup intake({intake_1, intake_2});

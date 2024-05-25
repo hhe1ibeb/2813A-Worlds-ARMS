@@ -6,7 +6,7 @@
 namespace shooter {
 
 extern pros::Motor shooter;
-void move(double velocity);
+void init();
 void opcontrol();
 
 }  // namespace shooter

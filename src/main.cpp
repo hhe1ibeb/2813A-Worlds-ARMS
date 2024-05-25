@@ -9,12 +9,13 @@
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-    // drive::init();
     arms::init();
+    sylib::initialize();
 
     // subsystems
     intake::init();
     wings::init();
+    shooter::init();
 }
 
 /**
@@ -22,7 +23,10 @@ void initialize() {
  * the VEX Competition Switch, following either autonomous or opcontrol. When
  * the robot is enabled, this task will exit.
  */
-void disabled() {}
+void disabled() {
+    leds::disabled();
+    leds::disabled_cycle();
+}
 
 /**
  * Runs after initialize(), and before autonomous when connected to the Field
@@ -48,9 +52,6 @@ void competition_initialize() {}
  */
 void autonomous();
 
-void odom_tuning(int mode);
-void pid_tuning(int mode);
-
 /**
  * Runs the operator control code. This function will be started in its own task
  * with the default priority and stack size whenever the robot is enabled via
@@ -66,6 +67,8 @@ void pid_tuning(int mode);
  */
 void opcontrol() {
     screen::init();
+    leds::set();
+    leds::cycle();
 
     arms::chassis::setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 
@@ -73,7 +76,7 @@ void opcontrol() {
         drive::opcontrol(false);
         intake::opcontrol();
         wings::opcontrol();
-        screen::odom_debug();
+        screen::print_2813A();
         shooter::opcontrol();
 
         // autonomous tests

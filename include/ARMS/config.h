@@ -53,7 +53,7 @@ namespace arms {
 #define AUTONS \
     "NQ", "FQAWP", "FQN", "NE", "FE", "Nothing"  // Names of autonomi, up to 10
 #define HUE 317    // Color of theme from 0-359(H part of HSV)
-#define DEFAULT 3  // Default auton selected
+#define DEFAULT 6  // Default auton selected
 
 // Initializer
 inline void init() {
